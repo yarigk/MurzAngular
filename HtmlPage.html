@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Angular</title>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="row" ng-app="beautifulApp" id="ng-app" ng-controller="inPutin">
+        <div class="col-sm-12 col-xs-12 col-md-12">
+            <h1 align="center"><kbd>Дела-делай</kbd></h1>
+            <br \>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <form ng-submit="addWork();">
+                        <input type="text" ng-model="workname" size="30" placeholder="Какое дело нужно сделать" /><br />
+                        <br \>
+                        <input type="text" ng-model="workername" size="30" placeholder="Кто его должен сделать" /><br />
+                        <br \>
+                        <input type="text" ng-model="priority" size="30" placeholder="Тут приоритет(число)" /><br />
+                        <br \>
+                        <input type="submit" class="btn btn-primary" value="Добавь дело тут">
+                    </form>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-8">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <td>Дело</td>
+                                <td>Имя</td>
+                                <td>Приоритет</td>
+                                <td>Сделано</td>
+                                <td>Удалить</td>
+                            </tr>
+                        </thead>
+                        <tr ng-repeat='work in works'>
+                            <td>{{work.workname}}</td>
+                            <td>{{work.workername}}</td>
+                            <td>{{work.priority}}</td>
+                            <td><a href="" ng-click="done(work, $index)"><span class="glyphicon glyphicon-ok"></span></a></td>
+                            <td><a href="" ng-click="del($index)"><span class="glyphicon glyphicon-remove"></span></a></td>
+                        </tr>
+                    </table>
+                    
+                </div>
+            </div>
+            <br \>
+            <h1 align="center"><kbd>Дела-сделанные</kbd></h1>
+            <br \>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <td>Дело</td>
+                        <td>Имя</td>
+                        <td>Приоритет</td>
+                    </tr>
+                </thead>
+                <tr ng-repeat='donework in doneworks'>
+                    <td>{{donework.workname}}</td>
+                    <td>{{donework.workername}}</td>
+                    <td>{{donework.priority}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!--$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$-->
+
+    <script type="text/javascript">
+        var beautifulApp = angular.module('beautifulApp', []);
+        function inPutin($scope) {
+            $scope.works = [
+            { workname: 'Ходить', workername: 'Vasya', priority: '2'},
+            { workname: 'Сидеть', workername: 'Sanya', priority: '1'},
+            { workname: 'Стоять', workername: 'Petya', priority: '3'}
+            ];
+
+            $scope.doneworks = [
+            { workname: 'Хоь', workername: 'Va', priority: '3' },
+            { workname: 'Сиь', workername: 'Sa', priority: '1' },
+            { workname: 'Сть', workername: 'Pa', priority: '3' }
+            ];
+
+            var someWork = $scope.works;
+            $scope.addWork = function () {
+                var newWork = $scope.workname;
+                var newWorker = $scope.workername;
+                var newPriority = $scope.priority;
+                someWork.in
+                    someWork.push({
+                        workname: newWork, workername: newWorker, priority: newPriority
+                    });
+
+            }
+
+            $scope.del = function (index) {
+                $scope.works.splice(index, 1);
+                
+            }
+
+
+            var somedoneWork = $scope.doneworks;
+            $scope.done = function (donework, index) {
+                thisWork = donework;
+                somedoneWork.push({
+                    workname: thisWork.workname, workername: thisWork.workername, priority: thisWork.priority
+                });
+                $scope.works.splice(index, 1);
+                }
+            }
+    </script>
+</body>
+</html>
